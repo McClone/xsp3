@@ -1,0 +1,27 @@
+group 'org.mcclone'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'war'
+
+sourceCompatibility = 1.7
+
+repositories {
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.24'
+    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.1'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.1'
+
+    compile group: 'org.springframework', name: 'spring-test', version: '3.2.18.RELEASE'
+    compile group: 'org.springframework', name: 'spring-web', version: '3.2.18.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '3.2.18.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context', version: '3.2.18.RELEASE'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
