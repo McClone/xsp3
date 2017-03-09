@@ -15,8 +15,9 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.4.2'
+    compile group: 'jstl', name: 'jstl', version: '1.2'
 
+    compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.4.2'
     compile group: 'org.apache.solr', name: 'solr-core', version: '4.4.0'
 
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.24'
@@ -24,7 +25,6 @@ dependencies {
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.1'
 
     compile group: 'org.springframework', name: 'spring-context-support', version: '3.2.18.RELEASE'
-
     compile group: 'org.springframework', name: 'spring-test', version: '3.2.18.RELEASE'
     compile group: 'org.springframework', name: 'spring-webmvc', version: '3.2.18.RELEASE'
     testCompile group: 'junit', name: 'junit', version: '4.11'
