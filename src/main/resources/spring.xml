@@ -6,11 +6,20 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <context:component-scan base-package="org.mcclone"/>
-    <context:property-placeholder location="application.properties"/>
+    <context:property-placeholder location="classpath*:application.properties"/>
 
     <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
     <task:executor id="myExecutor" pool-size="5"/>
     <task:scheduler id="myScheduler" pool-size="10"/>
 
-    <bean class="org.mcclone.PropertyContextHolder" lazy-init="false"/>
+    <bean class="org.mcclone.context.PropertyContextHolder" lazy-init="false"/>
+
+    <bean class="org.springframework.remoting.jaxws.SimpleHttpServerJaxWsServiceExporter">
+        <property name="hostname" value="localhost"/>
+        <property name="port" value="8080"/>
+        <property name="basePath" value="/test/"/>
+    </bean>
+
+    <bean id="helloWorldPort" class="org.mcclone.ws.HelloWorldImpl">
+    </bean>
 </beans>

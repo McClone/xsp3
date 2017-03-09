@@ -1,4 +1,4 @@
-package org.mcclone;
+package org.mcclone.context;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;

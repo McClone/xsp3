@@ -10,7 +10,5 @@ public class SpringRunner {
 
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"spring.xml"});
-        context.publishEvent(new SimpleApplicationEvent("hello World"));
-        System.out.println(PropertyContextHolder.getProperty("application.name"));
     }
 }
