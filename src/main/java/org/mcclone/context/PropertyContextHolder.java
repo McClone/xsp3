@@ -27,10 +27,10 @@ public class PropertyContextHolder implements ApplicationContextAware, Initializ
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        properties = loadProperties();
+        loadProperties();
     }
 
-    protected Properties loadProperties() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    protected void loadProperties() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         String[] beanNames = applicationContext.getBeanNamesForType(PropertiesLoaderSupport.class);
         Properties properties = null;
         for (String beanName : beanNames) {
@@ -44,7 +44,7 @@ public class PropertyContextHolder implements ApplicationContextAware, Initializ
                 properties = (Properties) method.invoke(propertiesLoaderSupport);
             }
         }
-        return properties;
+        PropertyContextHolder.properties = properties;
     }
 
     @Override
