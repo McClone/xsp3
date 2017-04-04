@@ -15,7 +15,8 @@ public class SchedulerCall {
         })
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.single())
-                .blockingSubscribe(System.out::println, Throwable::printStackTrace);
+                .subscribe(System.out::println, Throwable::printStackTrace);
+        Thread.sleep(2000);
 
     }
 }
