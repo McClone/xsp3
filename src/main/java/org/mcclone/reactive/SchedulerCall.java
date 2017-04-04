@@ -17,6 +17,5 @@ public class SchedulerCall {
                 .observeOn(Schedulers.single())
                 .subscribe(System.out::println, Throwable::printStackTrace);
         Thread.sleep(2000);
-
     }
 }
