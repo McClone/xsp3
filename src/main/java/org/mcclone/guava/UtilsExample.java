@@ -3,6 +3,8 @@ package org.mcclone.guava;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import com.google.common.hash.Hashing;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,5 +28,9 @@ public class UtilsExample {
 
         Strings.isNullOrEmpty("");
 
+        String hashStr = Hashing.md5().hashUnencodedChars("123").toString();
+        System.out.println(hashStr);
+
+        Lists.newArrayList("1", "2", "3").forEach(System.out::println);
     }
 }
