@@ -2,6 +2,7 @@ package org.mcclone.guava;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,5 +23,8 @@ public class UtilsExample {
         System.out.println(CharMatcher.DIGIT.removeFrom(str));
         //保留数字和小写字母
         System.out.println(CharMatcher.DIGIT.or(CharMatcher.JAVA_LOWER_CASE).retainFrom(str));
+
+        Strings.isNullOrEmpty("");
+
     }
 }
