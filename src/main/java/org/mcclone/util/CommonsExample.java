@@ -1,5 +1,7 @@
 package org.mcclone.util;
 
+import org.apache.commons.collections.OrderedBidiMap;
+import org.apache.commons.collections.bidimap.TreeBidiMap;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.SystemUtils;
@@ -20,5 +22,9 @@ public class CommonsExample {
         List<Class> interfaces = ClassUtils.getAllInterfaces(ApplicationContext.class);
         interfaces.forEach(aClass -> System.out.println(aClass.getName()));
 
+        OrderedBidiMap orderedBidiMap = new TreeBidiMap();
+        orderedBidiMap.put("123", 1);
+        orderedBidiMap.put("1234", 1);
+        System.out.println(orderedBidiMap.getKey(1));
     }
 }

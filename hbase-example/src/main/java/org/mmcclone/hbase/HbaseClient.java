@@ -1,12 +1,12 @@
-package org.mcclone.hbase;
+package org.mmcclone.hbase;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.HColumnDescriptor;
+import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.client.Connection;
-import org.apache.hadoop.hbase.client.ConnectionFactory;
-import org.apache.hadoop.hbase.client.Put;
-import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.io.compress.Compression;
 
 import java.io.IOException;
 
@@ -27,6 +27,17 @@ public class HbaseClient {
             table.getScanner("cf".getBytes()).forEach(System.out::println);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void createSchemaTables(Configuration config, String tableName, String familyName) throws IOException {
+        try (Connection connection = ConnectionFactory.createConnection(config);
+             Admin admin = connection.getAdmin()) {
+            HTableDescriptor table = new HTableDescriptor(TableName.valueOf(tableName));
+            table.addFamily(new HColumnDescriptor(familyName).setCompressionType(Compression.Algorithm.NONE));
+            if (!admin.tableExists(table.getTableName())) {
+                admin.createTable(table);
+            }
         }
     }
 

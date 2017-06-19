@@ -10,6 +10,7 @@ public class CollectionExample {
     public static void main(String[] args) {
         BiMap<String, Integer> userId = HashBiMap.create();
         userId.put("admin", 1);
+        userId.put("admin1", 1);
         System.out.println(userId.inverse().get(1));
 
         Multiset<String> multiset = HashMultiset.create();
