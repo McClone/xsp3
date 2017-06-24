@@ -47,6 +47,14 @@ public class PropertyContextHolder implements ApplicationContextAware, Initializ
         PropertyContextHolder.properties = properties;
     }
 
+    public void reload() {
+        try {
+            loadProperties();
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
