@@ -1,30 +1,30 @@
 package org.mcclone.event;
 
 import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
-import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by mcclone on 17-6-24.
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("/spring.xml")
 public class ContextRefreshedEventListenerForRegisterServiceTest {
 
     private static CountDownLatch countDownLatch = new CountDownLatch(1);
 
+    @Autowired
+    private CuratorFramework curatorFramework;
+
     @Test
     public void onApplicationEvent() throws Exception {
-        CuratorFramework curatorFramework = CuratorFrameworkFactory
-                .builder()
-                .connectString("localhost:2181")
-                .sessionTimeoutMs(5000)
-                .retryPolicy(new ExponentialBackoffRetry(1000, 3))
-                .build();
-
         curatorFramework.start();
         PathChildrenCache pathChildrenCache = new PathChildrenCache(curatorFramework, "/service", true);
         pathChildrenCache.start(PathChildrenCache.StartMode.POST_INITIALIZED_EVENT);

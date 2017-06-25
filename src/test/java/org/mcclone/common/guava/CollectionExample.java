@@ -1,4 +1,4 @@
-package org.mcclone.guava;
+package org.mcclone.common.guava;
 
 import com.google.common.collect.*;
 

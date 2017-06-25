@@ -1,4 +1,4 @@
-package org.mcclone.util;
+package org.mcclone.common.util;
 
 import org.apache.commons.collections.OrderedBidiMap;
 import org.apache.commons.collections.bidimap.TreeBidiMap;

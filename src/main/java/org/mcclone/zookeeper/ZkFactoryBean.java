@@ -1,4 +1,4 @@
-package org.mcclone.zk;
+package org.mcclone.zookeeper;
 
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;

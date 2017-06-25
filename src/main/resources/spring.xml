@@ -14,11 +14,12 @@
 
     <bean class="org.mcclone.context.PropertyContextHolder" lazy-init="false"/>
 
-    <!--<import resource="spring-ws.xml"/>-->
-    <bean id="zooKeeper" class="org.mcclone.zk.ZkFactoryBean">
+    <bean id="zooKeeper" class="org.mcclone.zookeeper.ZkFactoryBean">
         <property name="connectString" value="${zk.url}"/>
         <property name="sessionTimeout" value="${zk.session.timeout}"/>
     </bean>
+
+    <bean id="curatorFramework" class="org.mcclone.zookeeper.CuratorFrameworkFactoryBean"/>
 
     <bean class="org.mcclone.event.ContextRefreshedEventListenerForRegisterService">
         <property name="zooKeeper" ref="zooKeeper"/>
