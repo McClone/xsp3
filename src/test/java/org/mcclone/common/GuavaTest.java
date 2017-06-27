@@ -4,11 +4,14 @@ import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
 import com.google.common.collect.*;
 import com.google.common.hash.Hashing;
+import com.google.common.util.concurrent.RateLimiter;
 import org.junit.Test;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by mcclone on 17-6-25.
@@ -67,8 +70,26 @@ public class GuavaTest {
     }
 
     @Test
-    public void testImmutableList() throws Exception{
+    public void testImmutableList() throws Exception {
         ImmutableList<String> immutableList = ImmutableList.of("t1", "t2");
         System.out.println(immutableList);
+    }
+
+    @Test
+    public void testRateLimiter() throws Exception {
+        RateLimiter rateLimiter = RateLimiter.create(5);
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+        taskExecutor.setCorePoolSize(50);
+        taskExecutor.initialize();
+        CountDownLatch countDownLatch = new CountDownLatch(50);
+        for (int i = 0; i < 50; i++) {
+            int finalI = i;
+            taskExecutor.execute(() -> {
+                rateLimiter.acquire();
+                System.out.println(finalI + ":" + System.currentTimeMillis());
+                countDownLatch.countDown();
+            });
+        }
+        countDownLatch.await();
     }
 }
