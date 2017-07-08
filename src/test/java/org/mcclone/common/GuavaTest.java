@@ -75,6 +75,15 @@ public class GuavaTest {
         System.out.println(immutableList);
     }
 
+    /**
+     * <p>
+     * synchronized (mutex) {
+     * microsToWait = reserveNextTicket(permits, readSafeMicros());
+     * }
+     * </p>
+     *
+     * @throws Exception
+     */
     @Test
     public void testRateLimiter() throws Exception {
         RateLimiter rateLimiter = RateLimiter.create(5);

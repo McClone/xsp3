@@ -19,7 +19,6 @@ public class CoreAdminRequestTest {
         solrClient = new HttpSolrClient.Builder("http://localhost:8983/solr").build();
     }
 
-
     @Test
     public void renameCore() throws Exception {
         try {
