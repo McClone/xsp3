@@ -1,5 +1,7 @@
 package org.mcclone.redis;
 
+import org.junit.Before;
+import org.junit.Test;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -7,8 +9,15 @@ import redis.clients.jedis.Jedis;
  */
 public class JedisClient {
 
-    public static void main(String[] args) {
-        Jedis jedis = new Jedis("localhost", 6379);
+    private Jedis jedis;
+
+    @Before
+    public void setUp() throws Exception {
+        jedis = new Jedis("localhost", 6379);
+    }
+
+    @Test
+    public void set() throws Exception {
         jedis.set("foo", "bar");
         String value = jedis.get("foo");
         System.out.println(value);

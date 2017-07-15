@@ -16,7 +16,7 @@ public class CoreAdminRequestTest {
 
     @Before
     public void setUp() throws Exception {
-        solrClient = new HttpSolrClient.Builder("http://localhost:8983/solr").build();
+        solrClient = new HttpSolrClient.Builder("http://localhost:9031/solr").build();
     }
 
     @Test

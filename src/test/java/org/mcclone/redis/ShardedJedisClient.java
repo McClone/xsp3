@@ -22,5 +22,8 @@ public class ShardedJedisClient {
         ShardedJedisPool pool = new ShardedJedisPool(new JedisPoolConfig(), jedisShardInfos);
         ShardedJedis shardedJedis = pool.getResource();
         shardedJedis.set("shardedKey", "shardedKey");
+        shardedJedis.set("shardedKey1", "shardedKey1");
+        shardedJedis.set("shardedKey2", "shardedKey2");
+        shardedJedis.set("shardedKey3", "shardedKey3");
     }
 }
