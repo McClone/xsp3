@@ -1,5 +1,6 @@
 package org.mcclone.redis;
 
+import org.junit.Test;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedis;
@@ -13,7 +14,8 @@ import java.util.List;
  */
 public class ShardedJedisClient {
 
-    public static void main(String[] args) {
+    @Test
+    public void test() throws Exception {
         List<JedisShardInfo> jedisShardInfos = new ArrayList<>();
         JedisShardInfo jedisShardInfo_1 = new JedisShardInfo("localhost", 6379);
         JedisShardInfo jedisShardInfo_2 = new JedisShardInfo("localhost", 6380);
