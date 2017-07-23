@@ -1,0 +1,12 @@
+package org.mcclone.proto;
+
+option java_package = "org.mcclone.proto";
+
+message Resp {
+
+    required int32 code = 1;
+
+    required string message = 2;
+
+    repeated string data = 3;
+}
