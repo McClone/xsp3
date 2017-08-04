@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="zooKeeper" class="org.mcclone.zookeeper.ZkFactoryBean">
+        <property name="connectString" value="${zk.url}"/>
+        <property name="sessionTimeout" value="${zk.session.timeout}"/>
+    </bean>
+
+    <bean id="curatorFramework" class="org.mcclone.zookeeper.CuratorFrameworkFactoryBean"/>
+
+    <bean class="org.mcclone.event.ContextRefreshedEventListenerForRegisterService">
+        <property name="zooKeeper" ref="zooKeeper"/>
+        <property name="serviceRootPath" value="${zk.service.register}"/>
+        <property name="servicePath" value="/demo"/>
+        <property name="appName" value="demo"/>
+    </bean>
+</beans>

@@ -2,10 +2,12 @@
   <library name="Gradle: org.springframework:spring-expression:3.2.18.RELEASE">
     <CLASSES>
       <root url="jar://D:/gradle_repo/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/3.2.18.RELEASE/70c1fb9f2111601193e01a8d0c3ccbca1bf3706/spring-expression-3.2.18.RELEASE.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/3.2.18.RELEASE/70c1fb9f2111601193e01a8d0c3ccbca1bf3706/spring-expression-3.2.18.RELEASE.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://D:/gradle_repo/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/3.2.18.RELEASE/85b512c6d735710e474362065cbfcc9d2048f9/spring-expression-3.2.18.RELEASE-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/3.2.18.RELEASE/85b512c6d735710e474362065cbfcc9d2048f9/spring-expression-3.2.18.RELEASE-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

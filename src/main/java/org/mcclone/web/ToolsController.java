@@ -26,7 +26,7 @@ public class ToolsController {
     @Autowired
     private PropertyContextHolder propertyContextHolder;
 
-    @Autowired
+    @Autowired(required = false)
     private ZooKeeper zooKeeper;
 
     @Value("${zk.service.register}")

@@ -2,29 +2,19 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:task="http://www.springframework.org/schema/task"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <context:component-scan base-package="org.mcclone"/>
     <context:property-placeholder location="classpath*:application.properties"/>
 
-    <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
-    <task:executor id="myExecutor" pool-size="5"/>
-    <task:scheduler id="myScheduler" pool-size="10"/>
+    <!--<task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>-->
+    <!--<task:executor id="myExecutor" pool-size="5"/>-->
+    <!--<task:scheduler id="myScheduler" pool-size="10"/>-->
 
     <bean class="org.mcclone.context.PropertyContextHolder" lazy-init="false"/>
+    <aop:aspectj-autoproxy/>
+    <aop:config proxy-target-class="false"/>
 
-    <bean id="zooKeeper" class="org.mcclone.zookeeper.ZkFactoryBean">
-        <property name="connectString" value="${zk.url}"/>
-        <property name="sessionTimeout" value="${zk.session.timeout}"/>
-    </bean>
-
-    <bean id="curatorFramework" class="org.mcclone.zookeeper.CuratorFrameworkFactoryBean"/>
-
-    <bean class="org.mcclone.event.ContextRefreshedEventListenerForRegisterService">
-        <property name="zooKeeper" ref="zooKeeper"/>
-        <property name="serviceRootPath" value="${zk.service.register}"/>
-        <property name="servicePath" value="/demo"/>
-        <property name="appName" value="demo"/>
-    </bean>
+    <!--<import resource="spring-zk.xml"/>-->
 </beans>

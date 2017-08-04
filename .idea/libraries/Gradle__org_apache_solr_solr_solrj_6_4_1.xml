@@ -2,10 +2,12 @@
   <library name="Gradle: org.apache.solr:solr-solrj:6.4.1">
     <CLASSES>
       <root url="jar://D:/gradle_repo/.gradle/caches/modules-2/files-2.1/org.apache.solr/solr-solrj/6.4.1/5e133aaf9b5761072067e35fd79bb4557a9a27c5/solr-solrj-6.4.1.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.solr/solr-solrj/6.4.1/5e133aaf9b5761072067e35fd79bb4557a9a27c5/solr-solrj-6.4.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://D:/gradle_repo/.gradle/caches/modules-2/files-2.1/org.apache.solr/solr-solrj/6.4.1/7f924a004622afdc3d2fd6b6a3d343e58cf0ad50/solr-solrj-6.4.1-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.solr/solr-solrj/6.4.1/7f924a004622afdc3d2fd6b6a3d343e58cf0ad50/solr-solrj-6.4.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
