@@ -20,7 +20,7 @@ public class ContextRefreshedEventListenerForRegisterServiceTest {
 
     private static CountDownLatch countDownLatch = new CountDownLatch(1);
 
-    @Autowired
+    @Autowired(required = false)
     private CuratorFramework curatorFramework;
 
     @Test

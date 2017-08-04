@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by mcclone on 17-8-4.
  */
-@Service
+@Service("helloService")
 public class HelloServiceImpl implements HelloService {
 
     private static final Logger logger = LoggerFactory.getLogger(HelloServiceImpl.class);

@@ -6,9 +6,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.support.PropertiesLoaderSupport;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.MethodInvoker;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Properties;
 
 /**
@@ -16,12 +16,11 @@ import java.util.Properties;
  */
 public class PropertyContextHolder implements ApplicationContextAware, InitializingBean {
 
-    private ApplicationContext applicationContext;
+    private static ApplicationContext applicationContext;
 
-    private static Properties properties;
+    private final static Properties properties = new Properties();
 
     public static String getProperty(String key) {
-        if (properties == null) return null;
         return properties.getProperty(key);
     }
 
@@ -30,33 +29,29 @@ public class PropertyContextHolder implements ApplicationContextAware, Initializ
         loadProperties();
     }
 
-    protected void loadProperties() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private static void loadProperties() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, ClassNotFoundException {
         String[] beanNames = applicationContext.getBeanNamesForType(PropertiesLoaderSupport.class);
-        Properties properties = null;
         for (String beanName : beanNames) {
             PropertiesLoaderSupport propertiesLoaderSupport = applicationContext.getBean(beanName, PropertiesLoaderSupport.class);
-            Method method = PropertiesLoaderSupport.class.getDeclaredMethod("mergeProperties");
-            method.setAccessible(true);
-            if (properties != null) {
-                Properties loadProperties = (Properties) method.invoke(propertiesLoaderSupport);
-                CollectionUtils.mergePropertiesIntoMap(loadProperties, properties);
-            } else {
-                properties = (Properties) method.invoke(propertiesLoaderSupport);
-            }
+            MethodInvoker methodInvoker = new MethodInvoker();
+            methodInvoker.setTargetObject(propertiesLoaderSupport);
+            methodInvoker.setTargetMethod("mergeProperties");
+            methodInvoker.prepare();
+            Properties loadProperties = (Properties) methodInvoker.invoke();
+            CollectionUtils.mergePropertiesIntoMap(loadProperties, properties);
         }
-        PropertyContextHolder.properties = properties;
     }
 
-    public void reload() {
+    public static void reload() {
         try {
             loadProperties();
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
+        PropertyContextHolder.applicationContext = applicationContext;
     }
 }

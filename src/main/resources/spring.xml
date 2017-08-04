@@ -26,10 +26,15 @@
 
     <bean id="sayHelloBeforeAdvice" class="org.mcclone.aop.SayHelloBeforeAdvice"/>
 
-    <aop:config>
-        <aop:pointcut id="sayHello" expression="execution(* org.mcclone.service.HelloService.sayHello(..))"/>
-        <aop:advisor advice-ref="sayHelloBeforeAdvice" pointcut-ref="sayHello"/>
-    </aop:config>
+    <bean id="helloServiceImpl" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="helloService"/>
+        <property name="interceptorNames" value="sayHelloBeforeAdvice"/>
+    </bean>
+
+    <!--<aop:config>-->
+        <!--<aop:pointcut id="sayHello" expression="execution(* org.mcclone.service.HelloService.sayHello(..))"/>-->
+        <!--<aop:advisor advice-ref="sayHelloBeforeAdvice" pointcut-ref="sayHello"/>-->
+    <!--</aop:config>-->
 
     <!--<import resource="spring-zk.xml"/>-->
 </beans>

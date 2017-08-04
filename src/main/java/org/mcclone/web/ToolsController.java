@@ -23,9 +23,6 @@ public class ToolsController {
 
     private static Logger logger = LoggerFactory.getLogger(ToolsController.class);
 
-    @Autowired
-    private PropertyContextHolder propertyContextHolder;
-
     @Autowired(required = false)
     private ZooKeeper zooKeeper;
 
@@ -35,7 +32,7 @@ public class ToolsController {
     @RequestMapping("/properties/reload")
     @ResponseBody
     public String reloadProperties() {
-        propertyContextHolder.reload();
+        PropertyContextHolder.reload();
         return PropertyContextHolder.getProperty("application.name");
     }
 
