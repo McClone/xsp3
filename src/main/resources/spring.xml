@@ -2,8 +2,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:task="http://www.springframework.org/schema/task" xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <context:component-scan base-package="org.mcclone"/>
     <context:property-placeholder location="classpath*:application.properties"/>
@@ -14,7 +22,14 @@
 
     <bean class="org.mcclone.context.PropertyContextHolder" lazy-init="false"/>
     <aop:aspectj-autoproxy/>
-    <aop:config proxy-target-class="false"/>
+    <aop:config/>
+
+    <bean id="sayHelloBeforeAdvice" class="org.mcclone.aop.SayHelloBeforeAdvice"/>
+
+    <aop:config>
+        <aop:pointcut id="sayHello" expression="execution(* org.mcclone.service.HelloService.sayHello(..))"/>
+        <aop:advisor advice-ref="sayHelloBeforeAdvice" pointcut-ref="sayHello"/>
+    </aop:config>
 
     <!--<import resource="spring-zk.xml"/>-->
 </beans>
