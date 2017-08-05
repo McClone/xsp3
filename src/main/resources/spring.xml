@@ -25,7 +25,9 @@
     <aop:aspectj-autoproxy/>
     <aop:config/>
 
-    <bean id="sayHelloBeforeAdvice" class="org.mcclone.aop.SayHelloBeforeAdvice"/>
+    <bean class="org.mcclone.aop.HelloServiceAspect"/>
+
+    <!--<bean id="sayHelloBeforeAdvice" class="org.mcclone.aop.SayHelloBeforeAdvice"/>-->
 
     <!--<bean id="helloServiceImpl" class="org.springframework.aop.framework.ProxyFactoryBean">-->
         <!--<property name="targetSource" ref="poolTargetSource"/>-->
@@ -37,10 +39,10 @@
         <!--<property name="maxSize" value="25"/>-->
     <!--</bean>-->
 
-    <bean id="helloServiceImpl" class="org.springframework.aop.framework.ProxyFactoryBean">
-        <property name="target" ref="helloService"/>
-        <property name="interceptorNames" value="sayHelloBeforeAdvice"/>
-    </bean>
+    <!--<bean id="helloServiceImpl" class="org.springframework.aop.framework.ProxyFactoryBean">-->
+        <!--<property name="target" ref="helloService"/>-->
+        <!--<property name="interceptorNames" value="sayHelloBeforeAdvice"/>-->
+    <!--</bean>-->
 
     <!--<aop:config>-->
         <!--<aop:pointcut id="sayHello" expression="execution(* org.mcclone.service.HelloService.sayHello(..))"/>-->
