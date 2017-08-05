@@ -19,7 +19,7 @@ import java.util.Date;
 @ContextConfiguration("/spring.xml")
 public class HelloServiceTest {
 
-    @Resource(name = "helloServiceImpl")
+    @Resource(name = "helloService")
     private HelloService helloService;
 
     @Autowired
