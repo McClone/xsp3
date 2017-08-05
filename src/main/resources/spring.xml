@@ -16,15 +16,26 @@
     <context:component-scan base-package="org.mcclone"/>
     <context:property-placeholder location="classpath*:application.properties"/>
 
-    <!--<task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>-->
-    <!--<task:executor id="myExecutor" pool-size="5"/>-->
-    <!--<task:scheduler id="myScheduler" pool-size="10"/>-->
+    <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
+    <task:executor id="myExecutor" pool-size="5"/>
+    <task:scheduler id="myScheduler" pool-size="10"/>
 
     <bean class="org.mcclone.context.PropertyContextHolder" lazy-init="false"/>
+
     <aop:aspectj-autoproxy/>
     <aop:config/>
 
     <bean id="sayHelloBeforeAdvice" class="org.mcclone.aop.SayHelloBeforeAdvice"/>
+
+    <!--<bean id="helloServiceImpl" class="org.springframework.aop.framework.ProxyFactoryBean">-->
+        <!--<property name="targetSource" ref="poolTargetSource"/>-->
+        <!--<property name="interceptorNames" value="sayHelloBeforeAdvice"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="poolTargetSource" class="org.springframework.aop.target.CommonsPoolTargetSource">-->
+        <!--<property name="targetBeanName" value="helloService"/>-->
+        <!--<property name="maxSize" value="25"/>-->
+    <!--</bean>-->
 
     <bean id="helloServiceImpl" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="target" ref="helloService"/>

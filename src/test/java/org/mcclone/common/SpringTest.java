@@ -1,11 +1,16 @@
 package org.mcclone.common;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.MethodInvoker;
 
 /**
- * Created by Administrator on 2017/7/30.
+ * @author mcclone
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("/spring.xml")
 public class SpringTest {
 
     @Test
