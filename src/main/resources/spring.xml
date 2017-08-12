@@ -28,6 +28,7 @@
     <bean class="org.mcclone.aop.HelloServiceAspect"/>
 
     <bean id="sayHelloBeforeAdvice" class="org.mcclone.aop.SayHelloBeforeAdvice"/>
+    <bean id="helloNameCacheAdvice" class="org.mcclone.aop.HelloNameCacheAdvice"/>
 
     <!--<bean id="helloServiceImpl" class="org.springframework.aop.framework.ProxyFactoryBean">-->
         <!--<property name="targetSource" ref="poolTargetSource"/>-->
@@ -47,8 +48,9 @@
     <aop:config>
         <aop:pointcut id="sayHello" expression="execution(* org.mcclone.service.HelloService.sayHello(..))"/>
         <aop:advisor advice-ref="sayHelloBeforeAdvice" pointcut-ref="sayHello"/>
+        <aop:advisor advice-ref="helloNameCacheAdvice" pointcut="execution(* org.mcclone.service.HelloService.getName(..))"/>
     </aop:config>
 
     <!--<import resource="spring-zk.xml"/>-->
-    <import resource="spring-jms.xml"/>
+    <!--<import resource="spring-jms.xml"/>-->
 </beans>

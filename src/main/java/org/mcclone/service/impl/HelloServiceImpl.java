@@ -20,4 +20,9 @@ public class HelloServiceImpl implements HelloService {
     public void sayHello(String name) {
         logger.info("hello," + name);
     }
+
+    @Override
+    public String getName(String name) {
+        return name;
+    }
 }

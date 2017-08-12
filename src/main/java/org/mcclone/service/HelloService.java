@@ -6,4 +6,6 @@ package org.mcclone.service;
 public interface HelloService {
 
     void sayHello(String name);
+
+    String getName(String name);
 }

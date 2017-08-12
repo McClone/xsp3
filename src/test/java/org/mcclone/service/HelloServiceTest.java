@@ -40,4 +40,11 @@ public class HelloServiceTest {
         proxy.sayHello(DateFormatUtils.ISO_DATE_FORMAT.format(new Date()));
     }
 
+    @Test
+    public void getName() throws Exception {
+        System.out.println(helloService.getName("1"));
+        System.out.println(helloService.getName("2"));
+        System.out.println(helloService.getName("1"));
+    }
+
 }
