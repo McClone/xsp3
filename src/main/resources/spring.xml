@@ -25,11 +25,6 @@
     <aop:aspectj-autoproxy/>
     <aop:config/>
 
-    <bean class="org.mcclone.aop.HelloServiceAspect"/>
-
-    <bean id="sayHelloBeforeAdvice" class="org.mcclone.aop.SayHelloBeforeAdvice"/>
-    <bean id="helloNameCacheAdvice" class="org.mcclone.aop.HelloNameCacheAdvice"/>
-
     <!--<bean id="helloServiceImpl" class="org.springframework.aop.framework.ProxyFactoryBean">-->
         <!--<property name="targetSource" ref="poolTargetSource"/>-->
         <!--<property name="interceptorNames" value="sayHelloBeforeAdvice"/>-->

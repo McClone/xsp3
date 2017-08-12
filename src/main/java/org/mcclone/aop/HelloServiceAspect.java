@@ -9,8 +9,10 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 @Aspect
+@Component
 public class HelloServiceAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(HelloServiceAspect.class);

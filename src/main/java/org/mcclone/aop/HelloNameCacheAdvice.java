@@ -7,15 +7,17 @@ import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by mcclone on 17-8-12.
  */
+@Component
 public class HelloNameCacheAdvice implements MethodInterceptor {
 
-    public static final Logger logger = LoggerFactory.getLogger(HelloNameCacheAdvice.class);
+    private static final Logger logger = LoggerFactory.getLogger(HelloNameCacheAdvice.class);
 
     private static final Cache<String, Object> cache = CacheBuilder
             .newBuilder()
