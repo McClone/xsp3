@@ -16,9 +16,9 @@
     <context:component-scan base-package="org.mcclone"/>
     <context:property-placeholder location="classpath*:application.properties"/>
 
-    <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
-    <task:executor id="myExecutor" pool-size="5"/>
-    <task:scheduler id="myScheduler" pool-size="10"/>
+    <task:annotation-driven executor="executor" scheduler="scheduler"/>
+    <task:executor id="executor" pool-size="5"/>
+    <task:scheduler id="scheduler" pool-size="10"/>
 
     <bean class="org.mcclone.context.PropertyContextHolder" lazy-init="false"/>
 

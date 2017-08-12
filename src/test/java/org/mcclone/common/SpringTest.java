@@ -2,8 +2,9 @@ package org.mcclone.common;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.MethodInvoker;
@@ -18,8 +19,11 @@ import java.util.Date;
 @ContextConfiguration("/spring.xml")
 public class SpringTest {
 
-    @Resource
+    @Autowired(required = false)
     private JmsTemplate jmsTemplate;
+
+    @Resource
+    private TaskExecutor executor;
 
     @Test
     public void testMethodInvoker() throws Exception {
@@ -34,12 +38,14 @@ public class SpringTest {
 
     @Test
     public void testJmsTemplate() throws Exception {
-        ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
-        threadPoolTaskExecutor.setCorePoolSize(10);
-        threadPoolTaskExecutor.initialize();
         for (int i = 0; i < 10; i++) {
-            threadPoolTaskExecutor.execute(() -> jmsTemplate.send(session -> session.createTextMessage("hello,Jms." + new Date())));
+            executor.execute(() -> jmsTemplate.send(session -> session.createTextMessage("hello,Jms." + new Date())));
         }
+    }
+
+    @Test
+    public void testExecutor() throws Exception {
+        executor.execute(() -> System.out.println(new Date()));
     }
 
     @Test
