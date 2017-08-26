@@ -8,6 +8,7 @@ import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.SystemUtils;
 import org.junit.Test;
+import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.context.ApplicationContext;
 
 import java.util.List;
@@ -45,5 +46,10 @@ public class ApacheCommonsTest {
             lruMap.put(i, i);
         }
         System.out.println(lruMap);
+    }
+
+    @Test
+    public void testCopyBean() throws Exception {
+        BeanCopier.create(Object.class, String.class, true);
     }
 }
