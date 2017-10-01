@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.apache.lucene:lucene-highlighter:4.4.0">
+    <CLASSES>
+      <root url="jar://D:/gradle_repo/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-highlighter/4.4.0/c55f402683388c0a71a1dfaaff198873dfe5b1e4/lucene-highlighter-4.4.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://D:/gradle_repo/.gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-highlighter/4.4.0/3a99f84e4b6a8f74c34b2f2bd076c9b2b46fff2e/lucene-highlighter-4.4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

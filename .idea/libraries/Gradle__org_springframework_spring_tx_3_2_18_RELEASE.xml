@@ -2,10 +2,12 @@
   <library name="Gradle: org.springframework:spring-tx:3.2.18.RELEASE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/3.2.18.RELEASE/fdd56c7f7ac4ee463bae12ddcb2edb0afccbdde6/spring-tx-3.2.18.RELEASE.jar!/" />
+      <root url="jar://D:/gradle_repo/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/3.2.18.RELEASE/fdd56c7f7ac4ee463bae12ddcb2edb0afccbdde6/spring-tx-3.2.18.RELEASE.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/3.2.18.RELEASE/ad8f16d956b52c8d6837c3ed7798648418f13052/spring-tx-3.2.18.RELEASE-sources.jar!/" />
+      <root url="jar://D:/gradle_repo/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/3.2.18.RELEASE/ad8f16d956b52c8d6837c3ed7798648418f13052/spring-tx-3.2.18.RELEASE-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

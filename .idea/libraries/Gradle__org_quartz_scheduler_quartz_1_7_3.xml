@@ -2,10 +2,12 @@
   <library name="Gradle: org.quartz-scheduler:quartz:1.7.3">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.quartz-scheduler/quartz/1.7.3/608f46b027f96a3ac197df035d4d4f49a3d3a49d/quartz-1.7.3.jar!/" />
+      <root url="jar://D:/gradle_repo/.gradle/caches/modules-2/files-2.1/org.quartz-scheduler/quartz/1.7.3/608f46b027f96a3ac197df035d4d4f49a3d3a49d/quartz-1.7.3.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.quartz-scheduler/quartz/1.7.3/120fad502ddce44ec78d7904771a47f4938a236b/quartz-1.7.3-sources.jar!/" />
+      <root url="jar://D:/gradle_repo/.gradle/caches/modules-2/files-2.1/org.quartz-scheduler/quartz/1.7.3/120fad502ddce44ec78d7904771a47f4938a236b/quartz-1.7.3-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

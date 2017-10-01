@@ -2,10 +2,12 @@
   <library name="Gradle: org.springframework:spring-jms:3.2.18.RELEASE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jms/3.2.18.RELEASE/bd9d212d1501985448bdb42f35c15d87089bac92/spring-jms-3.2.18.RELEASE.jar!/" />
+      <root url="jar://D:/gradle_repo/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jms/3.2.18.RELEASE/bd9d212d1501985448bdb42f35c15d87089bac92/spring-jms-3.2.18.RELEASE.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jms/3.2.18.RELEASE/bdc401c4215204e7d63240eddd8256e73ca817ea/spring-jms-3.2.18.RELEASE-sources.jar!/" />
+      <root url="jar://D:/gradle_repo/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jms/3.2.18.RELEASE/bdc401c4215204e7d63240eddd8256e73ca817ea/spring-jms-3.2.18.RELEASE-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -2,10 +2,12 @@
   <library name="Gradle: org.springframework:spring-aspects:3.2.18.RELEASE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aspects/3.2.18.RELEASE/6da09d3fffb160da4dcbfcb37f2c69841dc5880c/spring-aspects-3.2.18.RELEASE.jar!/" />
+      <root url="jar://D:/gradle_repo/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aspects/3.2.18.RELEASE/6da09d3fffb160da4dcbfcb37f2c69841dc5880c/spring-aspects-3.2.18.RELEASE.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aspects/3.2.18.RELEASE/4a4e715aedcf841cfb65ffb0f7666c0cc2c5ab80/spring-aspects-3.2.18.RELEASE-sources.jar!/" />
+      <root url="jar://D:/gradle_repo/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aspects/3.2.18.RELEASE/4a4e715aedcf841cfb65ffb0f7666c0cc2c5ab80/spring-aspects-3.2.18.RELEASE-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
