@@ -27,6 +27,7 @@ repositories {
 
 dependencies {
 //    compile fileTree(dir:'src/lib',include:['*.jar'])
+    compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
     compile group: 'org.apache.activemq', name: 'activemq-all', version: '5.12.3'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
     compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
