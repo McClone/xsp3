@@ -1,4 +1,4 @@
-package org.mcclone.proto;
+package org.mcclone;
 
 import com.google.common.base.Strings;
 import com.google.common.primitives.Bytes;
