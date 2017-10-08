@@ -6,10 +6,12 @@ import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 import org.jboss.netty.handler.codec.serialization.ClassResolvers;
 import org.jboss.netty.handler.codec.serialization.ObjectDecoder;
 
+import java.io.File;
 import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 
 /**
- * Created by mcclone on 17-6-28.
+ * @author Administrator
  */
 public class NettyServer {
 
@@ -21,17 +23,25 @@ public class NettyServer {
         bootstrap.bind(new InetSocketAddress(8000));
     }
 
-    private static class HelloServerHandler extends
-            SimpleChannelHandler {
+    private static class HelloServerHandler extends SimpleChannelHandler {
 
         @Override
         public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) {
-            System.out.println("Hello, I'm server.");
+            SocketAddress socketAddress = e.getChannel().getRemoteAddress();
+            System.out.println("Hello, I'm server." + socketAddress);
+        }
+
+        @Override
+        public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
+            System.out.println("channelClosed");
         }
 
         @Override
         public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
-            System.out.println((String) e.getMessage());
+            Object message = e.getMessage();
+            if (message instanceof File) {
+                System.out.println(((File) message).getAbsolutePath());
+            }
         }
     }
 }
