@@ -8,6 +8,7 @@ import org.apache.solr.common.SolrInputDocument;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -26,8 +27,8 @@ public class HttpSolrClientTest {
     public void add() throws Exception {
         SolrInputDocument document = new SolrInputDocument();
         document.addField("id", UUID.randomUUID().toString().replaceAll("-", ""));
-        document.addField("name", "name");
-        document.addField("flow", 11);
+        document.addField("name", "zhdfgdfg");
+        document.addField("flow", "12312312");
         solrClient.add(document);
         solrClient.commit();
     }
@@ -50,5 +51,9 @@ public class HttpSolrClientTest {
         facetField.getValues().forEach(count -> {
             System.out.println(count.getName() + ":" + count.getCount());
         });
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Date().toInstant().toString());
     }
 }

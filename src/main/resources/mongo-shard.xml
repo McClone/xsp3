@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <property>
+        <name>mongo.config.host</name>
+        <value>localhost</value>
+        <!--<description>null</description>-->
+    </property>
+    <property>
+        <name>mongo.config.port</name>
+        <value>27017</value>
+    </property>
+    <property>
+        <name>mongo.config.database</name>
+        <value>config</value>
+    </property>
+    <property>
+        <name>mongo.config.collection</name>
+        <value>shardConfig</value>
+    </property>
+</configuration>
