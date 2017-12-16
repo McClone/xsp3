@@ -1,5 +1,13 @@
 package org.mcclone.mongodb;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import com.mongodb.BasicDBObjectBuilder;
+import org.bson.Document;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Administrator
  */
@@ -21,9 +29,9 @@ public class ShardedMongoTest {
 //        shardInfos.add(shardInfo1);
 //        shardInfos.add(shardInfo2);
 //        client.mongoManage().createShardCollection("test", shardInfos);
-//        System.out.println(client.mongoManage().getShardCollections());
+        System.out.println(client.mongoManage().getShardCollections());
 //        client.shardMongoCollection("test").insertOne(new Document(BasicDBObjectBuilder.start().add("_id", "12312").add("name", "admin").get().toMap()));
-        System.out.println(client.shardMongoCollection("test").find());
+//        System.out.println(client.shardMongoCollection("test").find());
 
     }
 }

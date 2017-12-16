@@ -1,5 +1,7 @@
 package org.mcclone.mongodb;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.DistinctIterable;
 import com.mongodb.client.FindIterable;
@@ -13,7 +15,7 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 import redis.clients.util.Hashing;
 
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -24,7 +26,7 @@ import java.util.TreeMap;
 public class ShardMongoClient {
 
     private MongoManage mongoManage;
-    private Map<String, ShardCollectionInfo> shardCollectionInfoMap = new HashMap<>();
+    private Multimap<String, ShardCollectionInfo> shardCollectionInfoMap = ArrayListMultimap.create();
 
     private ShardMongoClient() {
         Configuration configuration = new Configuration();
@@ -50,18 +52,17 @@ public class ShardMongoClient {
 
     public class ShardMongoCollection {
 
-        private TreeMap<Long, ShardInfo> rangeIndex = new TreeMap<>();
+        private TreeMap<Long, ShardCollectionInfo> rangeIndex = new TreeMap<>();
         private String keyField;
-        private List<ShardInfo> shardInfos;
+        private Collection<ShardCollectionInfo> shardCollectionInfos;
 
         private ShardMongoCollection(String collectionName) {
             if (shardCollectionInfoMap.containsKey(collectionName)) {
-                ShardCollectionInfo shardCollectionInfo = shardCollectionInfoMap.get(collectionName);
-                shardInfos = shardCollectionInfo.getShardInfoList();
-                for (ShardInfo shardInfo : shardInfos) {
-                    rangeIndex.put(shardInfo.getStartKey(), shardInfo);
+                shardCollectionInfos = shardCollectionInfoMap.get(collectionName);
+                for (ShardCollectionInfo shardCollectionInfo : shardCollectionInfos) {
+                    keyField = shardCollectionInfo.getKeyField();
+                    rangeIndex.put(shardCollectionInfo.getStartKey(), shardCollectionInfo);
                 }
-                keyField = shardCollectionInfo.getKeyField();
             } else {
                 throw new UnsupportedOperationException(collectionName);
             }
@@ -70,6 +71,7 @@ public class ShardMongoClient {
         protected MongoCollection<Document> getShardConnect(Map<String, Object> document) {
             String keyFieldValue = (String) document.get(keyField);
             long key = Hashing.MD5.hash(keyFieldValue);
+            document.put("rowKey", key);
             Long startKey = rangeIndex.tailMap(key).firstKey();
             return mongoManage.getConnect(rangeIndex.get(startKey));
         }
@@ -84,7 +86,7 @@ public class ShardMongoClient {
 
         public long count(BasicDBObject filter, CountOptions options) {
             long count = 0;
-            for (ShardInfo shardInfo : shardInfos) {
+            for (ShardCollectionInfo shardInfo : shardCollectionInfos) {
                 count += mongoManage.getConnect(shardInfo).count(filter, options);
             }
             return count;
@@ -98,19 +100,10 @@ public class ShardMongoClient {
             return null;
         }
 
-        public FindIterable<Document> find() {
-            return null;
-        }
-
-        public <TResult> FindIterable<TResult> find(Class<TResult> tResultClass) {
-            return null;
-        }
-
         public FindIterable<Document> find(Bson filter) {
-            return null;
-        }
-
-        public <TResult> FindIterable<TResult> find(Bson filter, Class<TResult> tResultClass) {
+            for (ShardCollectionInfo shardInfo : shardCollectionInfos) {
+                mongoManage.getConnect(shardInfo).find(filter);
+            }
             return null;
         }
 
@@ -119,7 +112,7 @@ public class ShardMongoClient {
         }
 
         public void insertOne(Document document, InsertOneOptions options) {
-
+            getShardConnect(document).insertOne(document, options);
         }
 
         public void insertMany(List<? extends Document> documents) {

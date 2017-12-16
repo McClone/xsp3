@@ -11,11 +11,11 @@ import java.util.List;
  */
 public interface MongoManage {
 
-    void createShardCollection(String collectionName, List<ShardInfo> shardInfoList) throws Exception;
+    void createShardCollection(String shardCollection, List<ShardInfo> shardInfoList) throws Exception;
 
-    void createShardCollection(String collectionName, List<ShardInfo> shardInfoList, String keyField, KeyStrategy keyStrategy) throws Exception;
+    void createShardCollection(String shardCollection, List<ShardInfo> shardInfoList, String keyField, KeyStrategy keyStrategy) throws Exception;
 
     List<ShardCollectionInfo> getShardCollections();
 
-    MongoCollection<Document> getConnect(ShardInfo shardInfo);
+    MongoCollection<Document> getConnect(ShardCollectionInfo shardInfo);
 }

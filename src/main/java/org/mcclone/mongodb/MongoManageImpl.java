@@ -1,5 +1,6 @@
 package org.mcclone.mongodb;
 
+import com.google.common.base.Joiner;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
@@ -7,7 +8,10 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.bson.Document;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Administrator
@@ -25,25 +29,19 @@ class MongoManageImpl implements MongoManage {
     }
 
     @Override
-    public void createShardCollection(String collectionName, List<ShardInfo> shardInfoList) throws Exception {
-        createShardCollection(collectionName, shardInfoList, "_id", KeyStrategy.HASH);
+    public void createShardCollection(String shardCollection, List<ShardInfo> shardInfoList) throws Exception {
+        createShardCollection(shardCollection, shardInfoList, "_id", KeyStrategy.HASH);
     }
 
     @Override
-    public void createShardCollection(String collectionName, List<ShardInfo> shardInfoList, String keyField, KeyStrategy keyStrategy) throws Exception {
-        Set<ShardInfo> shardInfoSet = new HashSet<>(shardInfoList);
-        if (shardInfoSet.size() <= 1) {
-            throw new IllegalStateException("不支持单分片");
-        }
+    public void createShardCollection(String shardCollection, List<ShardInfo> shardInfoList, String keyField, KeyStrategy keyStrategy) throws Exception {
         switch (keyStrategy) {
             case HASH:
                 List<Ranges.Range> ranges = Ranges.build(shardInfoList.size()).getRanges();
-                List<Document> shardInfos = new ArrayList<>();
+                List<Document> data = new ArrayList<>();
                 for (int i = 0; i < shardInfoList.size(); i++) {
                     ShardInfo shardInfo = shardInfoList.get(i);
                     Ranges.Range range = ranges.get(i);
-                    shardInfo.setStartKey(range.getStartKey());
-                    shardInfo.setEndKey(range.getEndKey());
                     Document document = new Document();
                     document.put("collectionName", shardInfo.getCollectionName());
                     document.put("databaseName", shardInfo.getDatabaseName());
@@ -53,15 +51,16 @@ class MongoManageImpl implements MongoManage {
                     document.put("port", shardInfo.getPort());
                     document.put("startKey", range.getStartKey());
                     document.put("endKey", range.getEndKey());
-                    shardInfos.add(document);
+                    document.put("keyField", keyField);
+                    document.put("keyStrategy", keyStrategy.name());
+                    document.put("shardCollection", shardCollection);
+                    String id = DigestUtils.md5Hex(Joiner.on("|")
+                            .join(shardCollection, shardInfo.getDatabaseName(),
+                                    shardInfo.getCollectionName(), shardInfo.getHost(), shardInfo.getPort()));
+                    document.put("_id", id);
+                    data.add(document);
                 }
-                Document document = new Document();
-                document.put("keyField", keyField);
-                document.put("keyStrategy", keyStrategy.name());
-                document.put("shardCollection", collectionName);
-                document.put("shardInfoList", shardInfos);
-                document.put("_id", DigestUtils.md5Hex(collectionName));
-                collection.insertOne(document);
+                collection.insertMany(data);
                 break;
         }
 
@@ -72,38 +71,32 @@ class MongoManageImpl implements MongoManage {
         List<ShardCollectionInfo> shardCollectionInfos = new ArrayList<>();
         for (Document document : collection.find()) {
             ShardCollectionInfo shardCollectionInfo = new ShardCollectionInfo();
-            shardCollectionInfo.setKeyStrategy(KeyStrategy.valueOf(document.getString("keyStrategy")));
+            shardCollectionInfo.setKeyStrategy(document.getString("keyStrategy"));
             shardCollectionInfo.setKeyField(document.getString("keyField"));
             shardCollectionInfo.setShardCollection(document.getString("shardCollection"));
-            List<ShardInfo> shardInfos = new ArrayList<>();
-            List<Document> shardInfoDocs = (List<Document>) document.get("shardInfoList");
-            for (Document shardInfoDoc : shardInfoDocs) {
-                ShardInfo shardInfo = new ShardInfo();
-                shardInfo.setStartKey(shardInfoDoc.getLong("startKey"));
-                shardInfo.setEndKey(shardInfoDoc.getLong("endKey"));
-                shardInfo.setHost(shardInfoDoc.getString("host"));
-                shardInfo.setPort(shardInfoDoc.getInteger("port"));
-                shardInfo.setDatabaseName(shardInfoDoc.getString("databaseName"));
-                shardInfo.setCollectionName(shardInfoDoc.getString("collectionName"));
-                shardInfo.setUserName(shardInfoDoc.getString("userName"));
-                shardInfo.setPassword(shardInfoDoc.getString("password"));
-                shardInfos.add(shardInfo);
-            }
-            shardCollectionInfo.setShardInfoList(shardInfos);
+
+            shardCollectionInfo.setStartKey(document.getLong("startKey"));
+            shardCollectionInfo.setEndKey(document.getLong("endKey"));
+            shardCollectionInfo.setHost(document.getString("host"));
+            shardCollectionInfo.setPort(document.getInteger("port"));
+            shardCollectionInfo.setDatabaseName(document.getString("databaseName"));
+            shardCollectionInfo.setCollectionName(document.getString("collectionName"));
+            shardCollectionInfo.setUserName(document.getString("userName"));
+            shardCollectionInfo.setPassword(document.getString("password"));
             shardCollectionInfos.add(shardCollectionInfo);
         }
         return shardCollectionInfos;
     }
 
     @Override
-    public MongoCollection<Document> getConnect(ShardInfo shardInfo) {
-        if (mongoCollectionMap.containsKey(shardInfo.hashCode())) {
-            return mongoCollectionMap.get(shardInfo.hashCode());
+    public MongoCollection<Document> getConnect(ShardCollectionInfo shardCollectionInfo) {
+        if (mongoCollectionMap.containsKey(shardCollectionInfo.hashCode())) {
+            return mongoCollectionMap.get(shardCollectionInfo.hashCode());
         } else {
-            ServerAddress serverAddress = new ServerAddress(shardInfo.getHost(), shardInfo.getPort());
+            ServerAddress serverAddress = new ServerAddress(shardCollectionInfo.getHost(), shardCollectionInfo.getPort());
             MongoClient client = new MongoClient(serverAddress);
-            MongoCollection<Document> mongoCollection = client.getDatabase(shardInfo.getDatabaseName()).getCollection(shardInfo.getCollectionName());
-            mongoCollectionMap.put(shardInfo.hashCode(), mongoCollection);
+            MongoCollection<Document> mongoCollection = client.getDatabase(shardCollectionInfo.getDatabaseName()).getCollection(shardCollectionInfo.getCollectionName());
+            mongoCollectionMap.put(shardCollectionInfo.hashCode(), mongoCollection);
             return mongoCollection;
         }
 
